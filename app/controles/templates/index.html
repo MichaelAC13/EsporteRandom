@@ -1,12 +1,98 @@
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<html lang="en"><head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Mobile tutorial - Leaflet</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	<style>body { padding: 0; margin: 0; } #map { height: 100%; width: 100vw; }</style>
 </head>
-<body style="border: 0;margin: 0;">
-    <div style="height: 100%;display: flex; align-items: center;justify-content: center">
-        <div>
-            <div style="margin: 10px; text-align: center; font-size: 50px;">Esp<i class="fa fa-volleyball-ball"></i>rtes</div>
-            <div><button style="margin: 10px;width: 200px;" > Jogar </button></ 
-            <div><button style="margin: 10px;width: 200px;"> Chamar </button></div>
-        </div>
+<body>
+
+<div id="map" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-487px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 19; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://tile.openstreetmap.org/9/185/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(378px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/186/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(634px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/185/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(378px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/186/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(634px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/185/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(378px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/186/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(634px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/184/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(122px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/187/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(890px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/184/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(122px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/187/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(890px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/184/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(122px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/187/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(890px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/183/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-134px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/188/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1146px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/183/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-134px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/188/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1146px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/183/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-134px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/188/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1146px, 463px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"><svg pointer-events="none" class="leaflet-zoom-animated" width="367" height="788" viewBox="456 -66 367 788" style="transform: translate3d(456px, -66px, 0px);"><g><path class="leaflet-interactive" stroke="#3388ff" stroke-opacity="1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#3388ff" fill-opacity="0.2" fill-rule="evenodd" d="M515.7034160355543,328.54004281869857a124,124 0 1,0 248,0 a124,124 0 1,0 -248,0 "></path></g></svg></div><div class="leaflet-pane leaflet-shadow-pane"><img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(640px, 328px, 0px);"></div><div class="leaflet-pane leaflet-marker-pane"><img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="Marker" tabindex="0" role="button" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(640px, 328px, 0px); z-index: 328;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(47622px, 75129.5px, 0px) scale(256);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a></div></div></div></div>
+
+<script>
+	const map = L.map('map').fitWorld();
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	function onLocationFound(e) {
+		const radius = e.accuracy / 2;
+
+		const locationMarker = L.marker(e.latlng).addTo(map)
+			.bindPopup(`You are within ${radius} meters from this point`).openPopup();
+
+		const locationCircle = L.circle(e.latlng, radius).addTo(map);
+	}
+
+	function onLocationError(e) {
+		alert(e.message);
+	}
+
+	map.on('locationfound', onLocationFound);
+	map.on('locationerror', onLocationError);
+
+	map.locate({setView: true, maxZoom: 16});
+</script>
+
+
+
+
+
+<div style="display: none" class="ubey-RecordingScreen-count-down ubey-RecordingScreen-count-down-container">
+    <style>
+        .ubey-RecordingScreen-count-down-container {
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            left: 0;
+            z-index: 9999999999999;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .ubey-RecordingScreen-count-down-content {
+            position: absolute;
+            display: flex;
+            top: 50%;
+            left: 50%;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            height: 15em;
+            width: 15em;
+            transform: translate(-50%, -100%);
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+        }
+
+        #ubey-RecordingScreen-count-count {
+            font-size: 14em;
+            transform: translateY(-2%);
+        }
+    </style>
+    <div class="ubey-RecordingScreen-count-down-content">
+        <span id="ubey-RecordingScreen-count-count"></span>
     </div>
-</body>
+</div></body><div id="vimeo-record-extension"></div></html>
