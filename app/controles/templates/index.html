@@ -1,98 +1,501 @@
-<html lang="en"><head>
-	<base target="_top">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<title>Mobile tutorial - Leaflet</title>
-	
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico">
+<html lang="en">
+  <head>
+    <base target="_top" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <title>Mobile tutorial - Leaflet</title>
 
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		.leaflet-container {
-			height: 400px;
-			width: 600px;
-			max-width: 100%;
-			max-height: 100%;
-		}
-	</style>
+    <!-- <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="docs/images/favicon.ico"
+    /> -->
 
-	<style>body { padding: 0; margin: 0; } #map { height: 100%; width: 100vw; }</style>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+    />
 
-<div id="map" class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-487px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 19; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://tile.openstreetmap.org/9/185/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(378px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/186/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(634px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/185/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(378px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/186/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(634px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/185/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(378px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/186/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(634px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/184/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(122px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/187/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(890px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/184/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(122px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/187/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(890px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/184/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(122px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/187/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(890px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/183/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-134px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/188/293.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1146px, 207px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/183/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-134px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/188/292.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1146px, -49px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/183/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-134px, 463px, 0px); opacity: 1;"><img alt="" src="https://tile.openstreetmap.org/9/188/294.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1146px, 463px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"><svg pointer-events="none" class="leaflet-zoom-animated" width="367" height="788" viewBox="456 -66 367 788" style="transform: translate3d(456px, -66px, 0px);"><g><path class="leaflet-interactive" stroke="#3388ff" stroke-opacity="1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#3388ff" fill-opacity="0.2" fill-rule="evenodd" d="M515.7034160355543,328.54004281869857a124,124 0 1,0 248,0 a124,124 0 1,0 -248,0 "></path></g></svg></div><div class="leaflet-pane leaflet-shadow-pane"><img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png" class="leaflet-marker-shadow leaflet-zoom-animated" alt="" style="margin-left: -12px; margin-top: -41px; width: 41px; height: 41px; transform: translate3d(640px, 328px, 0px);"></div><div class="leaflet-pane leaflet-marker-pane"><img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png" class="leaflet-marker-icon leaflet-zoom-animated leaflet-interactive" alt="Marker" tabindex="0" role="button" style="margin-left: -12px; margin-top: -41px; width: 25px; height: 41px; transform: translate3d(640px, 328px, 0px); z-index: 328;"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(47622px, 75129.5px, 0px) scale(256);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in" aria-disabled="false"><span aria-hidden="true">+</span></a><a class="leaflet-control-zoom-out" href="#" title="Zoom out" role="button" aria-label="Zoom out" aria-disabled="false"><span aria-hidden="true">−</span></a></div></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a></div></div></div></div>
-
-<script>
-	const map = L.map('map').fitWorld();
-
-	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
-
-	function onLocationFound(e) {
-		const radius = e.accuracy / 2;
-
-		const locationMarker = L.marker(e.latlng).addTo(map)
-			.bindPopup(`You are within ${radius} meters from this point`).openPopup();
-
-		const locationCircle = L.circle(e.latlng, radius).addTo(map);
-	}
-
-	function onLocationError(e) {
-		alert(e.message);
-	}
-
-	map.on('locationfound', onLocationFound);
-	map.on('locationerror', onLocationError);
-
-	map.locate({setView: true, maxZoom: 16});
-</script>
-
-
-
-
-
-<div style="display: none" class="ubey-RecordingScreen-count-down ubey-RecordingScreen-count-down-container">
     <style>
-        .ubey-RecordingScreen-count-down-container {
-            position: fixed;
-            height: 100vh;
-            width: 100vw;
-            top: 0;
-            left: 0;
-            z-index: 9999999999999;
-            background-color: rgba(0, 0, 0, 0.2);
-        }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
 
-        .ubey-RecordingScreen-count-down-content {
-            position: absolute;
-            display: flex;
-            top: 50%;
-            left: 50%;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            height: 15em;
-            width: 15em;
-            transform: translate(-50%, -100%);
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 50%;
-        }
+      .leaflet-container {
+        height: 400px;
+        width: 600px;
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .flex {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+        flex-wrap: nowrap;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+      }
 
-        #ubey-RecordingScreen-count-count {
-            font-size: 14em;
-            transform: translateY(-2%);
-        }
+      #map {
+        height: 100%;
+        width: 100vw;
+      }
+      .leaflet-control-zoom {
+        display: flex;
+        border: 0;
+      }
+      .leaflet-touch,
+      .leaflet-control-layers,
+      .leaflet-touch,
+      .leaflet-bar,
+      .leaflet-control-zoom-out,
+      .leaflet-control-zoom-in {
+        border: 0 !important;
+
+      }
+      .leaflet-control-zoom-out {
+        margin-left: 5px;
+        content: icon;
+      }
+      .leaflet-control-zoom-in,
+      .leaflet-control-zoom-out {
+        background-color: rgb(62, 62, 62) !important;
+        color: rgb(193, 193, 193) !important;
+        border-radius: 5px !important;
+		padding-top: 5px;
+		height: 35px !important;
+		width: 40px !important;
+		text-align: center;
+      }
+	  .button {
+        background-color: rgb(62, 62, 62) !important;
+        color: rgb(193, 193, 193) !important;
+        border-radius: 5px !important;
+		height: 40px !important;
+		width: 40px !important;
+		text-align: center;
+      }
+      .leaflet-control-zoom-in:hover,
+      .leaflet-control-zoom-out:hover,
+      .button:hover {
+        background-color: rgb(39, 39, 39) !important;
+        color: rgb(193, 193, 193) !important;
+		
+      }
+	  .leaflet-popup{
+		margin-top: 200px;
+	  }
+      .leaflet-popup-content-wrapper {
+        border-radius: 5px !important;
+        background-color: rgb(35, 35, 35);
+		width: 100%;
+      }
+      .leaflet-popup-tip {
+        background-color: rgb(35, 35, 35);
+      }
+      .menu {
+        position: fixed;
+        z-index: 800;
+        /* width: 200px; */
+        top: 10px;
+        left: 100px;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+        border-radius: 5px;
+        background-color: rgb(65, 65, 65);
+		
+      }
+      .card-init input {
+        height: 40px;
+        width: 230px;
+        background-color: rgb(73, 73, 73);
+		margin: 5px;
+		border-radius: 5px;
+		border: 0px;
+		color: rgb(140, 183, 140);
+		text-indent: 10px;
+      }
+
+	  .open{
+		visibility:visible;
+	  }
+	  .closed{
+		visibility: hidden;
+	  }
     </style>
-    <div class="ubey-RecordingScreen-count-down-content">
-        <span id="ubey-RecordingScreen-count-count"></span>
+  </head>
+
+  <body>
+    <div class="menu">
+      <div class="flex">
+        <div
+          style="
+            z-index: 999;
+            font-size: 70px;
+            position: fixed;
+            right: 10px;
+            color: rgb(80, 80, 80);
+			border-radius: 5px;
+          "
+        ></div>
+      </div>
+	  
+      <form
+        style="margin: 0; border: 0"
+        class="form-inline"
+        role="search"
+        accept-charset="UTF-8"
+        action=""
+      >
+        <div class="row g-2">
+          <div class="col-auto">
+            <input
+              name="street"
+              type="text"
+              class="form-control form-control-sm me-1"
+              placeholder="Rua, Cidade"
+              onchange="searchplace(this.value)"
+              style="height: 38;border-radius: 5px;border: 0;margin: 1px;width: 200px;"
+            />
+            <label
+              for="street"
+              class="button"
+              style="
+                padding: 10px;
+                color: cadetblue;
+                text-align: center;
+                vertical-align: middle;
+              "
+            >
+              <i class="fa fa-search"></i>
+            </label>
+          </div>
+          <div class="col-auto">
+            <input
+              style="display: none"
+              name="city"
+              type="text"
+              class="form-control form-control-sm me-1"
+              placeholder="City"
+            />
+          </div>
+          <div class="col-auto">
+            <input
+              style="display: none"
+              id="county"
+              name="county"
+              type="text"
+              class="form-control form-control-sm me-1"
+              placeholder="County"
+            />
+          </div>
+          <div class="col-auto">
+            <input
+              style="display: none"
+              name="state"
+              type="text"
+              class="form-control form-control-sm me-1"
+              placeholder="State"
+            />
+          </div>
+          <div class="col-auto">
+            <input
+              style="display: none"
+              name="country"
+              type="text"
+              class="form-control form-control-sm me-1"
+              placeholder="Country"
+            />
+          </div>
+          <div class="col-auto">
+            <input
+              style="display: none"
+              name="postalcode"
+              type="text"
+              class="form-control form-control-sm me-1"
+              placeholder="Postal Code"
+            />
+          </div>
+        </div>
+      </form>
     </div>
-</div></body><div id="vimeo-record-extension"></div></html>
+
+    <div
+      id="map"
+      class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+      tabindex="0"
+      style="position: relative; z-index: 0"
+    ></div>
+  </body>
+  <script>
+    async function searchplace(values) {
+      var response = await fetch(
+        "https://nominatim.openstreetmap.org/search?q="+values+"&polygon_geojson=1&format=json",
+        { method: "get" }
+      );
+      var latlong = await response.json();
+	  console.log(latlong);
+
+      async function reverseplace(iten) {
+        var response = await fetch(
+          "https://nominatim.openstreetmap.org/reverse?lat="+iten.lat+"&lon="+iten.lon+"&format=json",
+          { method: "get" }
+        ).then((data) => data.json());
+        var place = response;
+        console.log(place);
+
+        var obj = Object.assign({}, place, iten);
+        onLocationFound(obj);
+      }
+
+      latlong.map((iten, index) => {
+		if (index <= 2){
+			console.log(iten)
+        	reverseplace(iten);
+		}
+  
+      });
+    }
+    var map = new L.map("map").fitWorld();
+
+    const tiles = L.tileLayer(
+      "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        maxZoom: 25,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }
+    ).addTo(map);
+
+    function onLocationFound(values) {
+      var mk = {
+        area: 5,
+        latlng: [values.lat, values.lon],
+        address: values.display_name,
+      };
+      var radius = mk.area * 1000;
+      var myIcon = L.icon({
+        iconUrl: "media/leaflet/images/marker-icon-yellow.png",
+        iconSize: [20, 30],
+        iconAnchor: [10, 30],
+        popupAnchor: [0, -30],
+      });
+
+      var card = `
+		<div class="flex">
+				<div style="z-index: 1000;width:100%;">
+					<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> ${mk.address}</div>
+					<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+					<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+					<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+				</div>
+				<div style="z-index: 999;font-size: 70px;position:fixed;right: 10px; color: rgb(80, 80, 80);"><i class="fa fa-volleyball-ball"></i></div>
+		</div>
+		`;
+      if (values.place_id > 0) {
+		
+        var card = `
+		<div style="z-index: 1000; width: 100%" class="card-init">
+        <div style="color: rgb(140, 183, 140)" class="flex">
+          <div style="margin: 10px;font-size: 70px">
+            <i class="fa fa-map-marker-alt"></i>
+          </div>
+          <form
+            style="margin: 0; border: 0"
+            class="form-inline"
+            role="search"
+            accept-charset="UTF-8"
+            action=""
+			onsubmit="submitandchangedisplay();"
+          >
+            <div class="row g-2" id="form-1" >
+              <div class="col-auto">
+                <input
+                  name="street"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Endereço"
+                  style="color: rgb(140, 183, 140)"
+				  value="${mk.address.split(",")[0]}"
+				  required
+                />
+              </div>
+			  <div class="col-auto">
+                <input
+                  name="number"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Número"
+                  style="color: rgb(140, 183, 140)"
+				  value=""
+				  required
+                />
+              </div>
+			  <div class="col-auto">
+                <input
+                  id="county"
+                  name="county"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Bairro"
+				  value="${values.address.county}"
+				  required
+                />
+              </div>
+              <div class="col-auto">
+                <input
+                  name="city"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Cidade"
+				  value="${values.address.city}"
+				  required
+                />
+              </div>
+              
+              <div class="col-auto">
+                <input
+                  name="state"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Estado"
+				  value="${values.address.state}"
+				  required
+                />
+              </div>
+              <div class="col-auto">
+                <input
+                  name="country"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="País"
+				  value="${values.address.country_code.toUpperCase()}"
+				  required
+                />
+              </div>
+            </div>
+			
+			<button style="border: 0;margin: 0;padding: 5px;background-color: rgba(73, 73, 73, 0); color: rgb(140, 183, 140); font-size: 20px;"><i class="fa fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+				`;
+
+			var card = `
+		<div style="z-index: 1000; width: 100%" class="card-init">
+        <div style="color: rgb(140, 183, 140)" class="flex">
+          <div style="margin: 10px;font-size: 70px">
+            <i class="fa fa-map-marker-alt"></i>
+          </div>
+          <form
+            style="margin: 0; border: 0"
+            class="form-inline"
+            role="search"
+            accept-charset="UTF-8"
+            action=""
+			onsubmit="submitandchangedisplay();"
+          >
+		  <div class="row g-2" id="form-2" >
+			<div class="col-auto">
+                <input
+                  name="date"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Data"
+				  value=""
+				  required
+                />
+			</div>
+			<div class="col-auto">
+                <input
+                  name="hour"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Hora"
+				  value=""
+				  required
+                />
+			</div>
+			<div class="col-auto">
+                <input
+                  name="duration"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Duração"
+				  value=""
+				  required
+                />
+			</div>
+			<div class="col-auto">
+                <input
+                  name="sporte"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Esporte"
+				  value=""
+				  required
+                />
+				
+			</div>
+			<div class="col-auto">
+                <input
+                  name="placetype"
+                  type="text"
+                  class="form-control form-control-sm me-1"
+                  placeholder="Tipo do Local de Jogo"
+				  value=""
+				  required
+                />
+				
+			</div>
+			</div>
+			<button style="border: 0;margin: 0;padding: 5px;background-color: rgba(73, 73, 73, 0); color: rgb(140, 183, 140); font-size: 20px;"><i class="fa fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+				`;
+      }
+
+      var locationMarker = new L.marker(mk.latlng, { icon: myIcon })
+        .addTo(map)
+        .bindPopup(card)
+        .openPopup();
+
+      var locationCircle = new L.circle(mk.latlng, radius, {
+        color: "yellow",
+      }).addTo(map);
+    }
+
+    function onLocationError(e) {
+      alert(e.message);
+    }
+
+    map.on("locationfound", onLocationFound);
+    map.on("locationerror", onLocationError);
+    map.locate({ setView: true, maxZoom: 25 });
+
+	// área de controle personalizações
+
+	function submitandchangedisplay() {
+		// aqui vai um post para a api 
+		document.getElementById("form-1").classList.add('closed')
+		document.getElementById("form-2").classList.remove('closed')
+	}
+	  
+  </script>
+</html>
