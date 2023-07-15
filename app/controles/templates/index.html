@@ -155,116 +155,38 @@
 
   <body>
     <div class="menu">
-      <div class="flex">
-        <div
-          style="
-            z-index: 999;
-            font-size: 70px;
-            position: fixed;
-            right: 10px;
-            color: rgb(80, 80, 80);
-            border-radius: 5px;
-          "
-        ></div>
-      </div>
-
-      <form
-        style="margin: 0; border: 0"
-        class="form-inline"
-        role="search"
-        accept-charset="UTF-8"
-        action=""
-      >
+      <form style="margin: 0; border: 0" class="form-inline" role="search" accept-charset="UTF-8" action="">
         <div class="row g-2">
           <div class="col-auto">
-            <input
-              name="main-street"
-              type="text"
-              class="form-control form-control-sm me-1"
-              placeholder="Rua, Cidade"
-              onchange="searchplace(this.value)"
-              style="
-                height: 38;
-                border-radius: 5px;
-                border: 0;
-                margin: 1px;
-                width: 200px;
-              "
-            />
-            <label
-              for="street"
-              class="button"
-              style="
-                padding: 10px;
-                color: cadetblue;
-                text-align: center;
-                vertical-align: middle;
-              "
-            >
-              <i class="fa fa-search"></i>
+            <input name="main-street" type="text" class="form-control form-control-sm me-1" placeholder="Rua, Cidade" onchange="autocompletesearch(this.value)" style=" height: 38; border-radius: 5px; border: 0; margin: 1px; width: 200px;"/>
+            <label for="street" class="button" style=" padding: 10px; color: cadetblue; text-align: center; vertical-align: middle; ">
+                  <i class="fa fa-search"></i>
             </label>
-          </div>
-          <div class="col-auto">
-            <input
-              style="display: none"
-              name="main-city"
-              type="text"
-              class="form-control form-control-sm me-1"
-              placeholder="City"
-            />
-          </div>
-          <div class="col-auto">
-            <input
-              style="display: none"
-              id="county"
-              name="main-county"
-              type="text"
-              class="form-control form-control-sm me-1"
-              placeholder="County"
-            />
-          </div>
-          <div class="col-auto">
-            <input
-              style="display: none"
-              name="main-state"
-              type="text"
-              class="form-control form-control-sm me-1"
-              placeholder="State"
-            />
-          </div>
-          <div class="col-auto">
-            <input
-              style="display: none"
-              name="main-country"
-              type="text"
-              class="form-control form-control-sm me-1"
-              placeholder="Country"
-            />
-          </div>
-          <div class="col-auto">
-            <input
-              style="display: none"
-              name="main-postalcode"
-              type="text"
-              class="form-control form-control-sm me-1"
-              placeholder="Postal Code"
-            />
+            <div id="autocomplete" style="background-color: rgb(34, 34, 34);"></div>
+
           </div>
         </div>
       </form>
     </div>
-
-    <div
-      id="map"
-      class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
-      tabindex="0"
-      style="position: relative; z-index: 0"
-    ></div>
+    <div id="map" class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; z-index: 0"></div>
   </body>
   <script>
       const map = L.map("map").fitWorld();
+      function autocomplete(itens) {
+        var autocomplete = document.getElementById("autocomplete")
+        itens.map((element) => {
+          var spl = element.display_name.split(",")
+          var html= `
+            <div title='${element.display_name}' role="option" onclick="searchplace(this.value)"  style="width:230px; padding:10px; vertical-align:middle; color:rgb(140, 183, 140); margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73)" >
+            ${spl[0]}, ${spl[1]}
+            </div> `;
+          autocomplete.innerHTML = autocomplete.innerHTML+ html
+        })
+        
+      }
+      async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
       async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj)}
-      async function searchplace(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlong = await response.json();console.log(latlong);}
+      async function searchplace(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
       const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
 
       function onLocationFound(values) {
@@ -350,7 +272,7 @@
                 <div class="col-auto">
                   <input
                     name="main-state"
-                    type="text"
+                    type="hidden"
                     class="form-control form-control-sm me-1"
                     placeholder="Estado"
     		  value="${values.address.state}"
@@ -360,7 +282,7 @@
                 <div class="col-auto">
                   <input
                     name="main-country"
-                    type="text"
+                    type="hidden"
                     class="form-control form-control-sm me-1"
                     placeholder="País"
     		  value="${values.address.country_code.toUpperCase()}"
@@ -472,7 +394,7 @@
         var locationMarker = new L.marker(mk.latlng, { icon: myIcon, draggable:draggable})
           .addTo(map)
           .bindPopup(card);
-          locationMarker.on("dragend", console.log('e'))
+          
        // var locationCircle = new L.circle(mk.latlng, radius, {
          // color: "yellow",draggable:true
        // }).addTo(map)
