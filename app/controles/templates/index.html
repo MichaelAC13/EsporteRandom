@@ -166,9 +166,11 @@
 
       .open {
         visibility: visible;
+        display: block;
       }
       .closed {
         visibility: hidden;
+        display: none;
       }
     </style>
   </head>
@@ -181,7 +183,7 @@
                   <i class="fa fa-search"></i>
             </label>
         </div>
-        <div id="autocomplete" style="background-color: rgb(65, 65, 65);border-radius: 5px;"></div>
+        <div id="autocomplete" class="closed" style="background-color: rgb(65, 65, 65);border-radius: 5px;"></div>
       
     </div>
     <div id="map" class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; z-index: 0"></div>
@@ -190,6 +192,7 @@
       const map = L.map("map").fitWorld();
       function autocomplete(itens) {
         var autocomplete = document.getElementById("autocomplete")
+        autocomplete.innerHTML = ''
         itens.map((element) => {
           var spl = element.display_name.split(",")
           var html= `
@@ -198,11 +201,13 @@
             </div> `;
           autocomplete.innerHTML = autocomplete.innerHTML+ html
         })
+        autocomplete.classList.remove('closed')
+        autocomplete.classList.add("open")
         
       }
       async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
       async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj)}
-      async function searchplace(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
+      async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");autocomplete.classList.remove('open');autocomplete.classList.add("closed"); var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
       const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
 
       function onLocationFound(values) {
@@ -270,6 +275,7 @@
                     type="text"
                     class="form-control form-control-sm me-1"
                     placeholder="Bairro"
+                    style="color: rgb(140, 183, 140)"
     		  value="${values.address.county}"
     		  required
                   />
@@ -280,6 +286,7 @@
                     type="text"
                     class="form-control form-control-sm me-1"
                     placeholder="Cidade"
+                    style="color: rgb(140, 183, 140)"
     		  value="${values.address.city}"
     		  required
                   />
