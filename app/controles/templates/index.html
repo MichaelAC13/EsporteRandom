@@ -96,6 +96,11 @@
         background-color: rgb(39, 39, 39) !important;
         color: rgb(193, 193, 193) !important;
       }
+      .autocomplete:hover{
+        background-color: rgb(39, 39, 39) !important;
+        color: rgb(193, 193, 193) !important;
+      }
+
       .leaflet-popup {
         margin-top: 200px;
       }
@@ -113,9 +118,8 @@
         /* width: 200px; */
         top: 10px;
         left: 100px;
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
         border-radius: 5px;
-        background-color: rgb(65, 65, 65);
+        background-color: rgba(0, 0, 0, 0);
       }
       input:-webkit-autofill,
       input:-webkit-autofill:hover, 
@@ -132,15 +136,31 @@
         transition: 0.5s;
         color: rgb(140, 183, 140);
       }
+      .menu input:-webkit-autofill,
+      .menu input:-webkit-autofill:hover, 
+      .menu input:-webkit-autofill:focus,
+      .menu textarea:-webkit-autofill,
+      .menu textarea:-webkit-autofill:hover
+      .menu textarea:-webkit-autofill:focus,
+      .menu select:-webkit-autofill,
+      .menu select:-webkit-autofill:hover,
+      .menu select:-webkit-autofill:focus {
+        border: 1px solid white;
+        -webkit-text-fill-color: rgb(200, 200, 200);!important;
+        -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
+        transition: 0.5s;
+        color: rgb(140, 183, 140);
+      }
 
       .card-init input {
         height: 40px;
         width: 230px;
         background-color: rgb(73, 73, 73);
+        background-color: rgba(240, 248, 255, 0);
         margin: 5px;
         border-radius: 5px;
         border: 0px;
-        color: rgb(140, 183, 140);
+        color: rgb(193, 193, 193); 
         text-indent: 10px;
       }
 
@@ -155,18 +175,14 @@
 
   <body>
     <div class="menu">
-      <form style="margin: 0; border: 0" class="form-inline" role="search" accept-charset="UTF-8" action="">
-        <div class="row g-2">
-          <div class="col-auto">
-            <input name="main-street" type="text" class="form-control form-control-sm me-1" placeholder="Rua, Cidade" onchange="autocompletesearch(this.value)" style=" height: 38; border-radius: 5px; border: 0; margin: 1px; width: 200px;"/>
-            <label for="street" class="button" style=" padding: 10px; color: cadetblue; text-align: center; vertical-align: middle; ">
+        <div style="background-color: rgb(65, 65, 65);border-radius:5px"> 
+            <input name="main-street" type="text" class="form-control form-control-sm me-1" placeholder="Rua, Cidade" onchange="autocompletesearch(this.value)" style=" height: 38; border-radius: 5px; border: 0; margin: 1px; width: 200px;color:rgb(200,200,200)"/>
+            <label for="street" class="button" style=" padding: 10px; color: rgbrgb(193, 193, 193); text-align: center; vertical-align: middle; ">
                   <i class="fa fa-search"></i>
             </label>
-            <div id="autocomplete" style="background-color: rgb(34, 34, 34);"></div>
-
-          </div>
         </div>
-      </form>
+        <div id="autocomplete" style="background-color: rgb(65, 65, 65);border-radius: 5px;"></div>
+      
     </div>
     <div id="map" class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; z-index: 0"></div>
   </body>
@@ -177,7 +193,7 @@
         itens.map((element) => {
           var spl = element.display_name.split(",")
           var html= `
-            <div title='${element.display_name}' role="option" onclick="searchplace(this.value)"  style="width:230px; padding:10px; vertical-align:middle; color:rgb(140, 183, 140); margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73)" >
+            <div title='${element.display_name}' class="autocomplete" role="option" onclick="searchplace('${spl[0]}, ${spl[1]}')"  style="width:215px; padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
             ${spl[0]}, ${spl[1]}
             </div> `;
           autocomplete.innerHTML = autocomplete.innerHTML+ html
@@ -186,7 +202,7 @@
       }
       async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
       async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj)}
-      async function searchplace(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
+      async function searchplace(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
       const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
 
       function onLocationFound(values) {
