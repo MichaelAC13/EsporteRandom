@@ -131,10 +131,11 @@
       select:-webkit-autofill:hover,
       select:-webkit-autofill:focus {
         border: 1px solid white;
-        -webkit-text-fill-color: rgb(140, 183, 140);!important;
+        -webkit-text-fill-color: rgb(140, 183, 140)!important;
         -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
         transition: 0.5s;
         color: rgb(140, 183, 140);
+        background-color: white;
       }
       .menu input:-webkit-autofill,
       .menu input:-webkit-autofill:hover, 
@@ -146,17 +147,17 @@
       .menu select:-webkit-autofill:hover,
       .menu select:-webkit-autofill:focus {
         border: 1px solid white;
-        -webkit-text-fill-color: rgb(200, 200, 200);!important;
+        -webkit-text-fill-color: rgb(245, 245, 245)!important;
         -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
         transition: 0.5s;
-        color: rgb(140, 183, 140);
+        color: rgb(200, 200, 200);
       }
 
       .card-init input {
         height: 40px;
         width: 230px;
         background-color: rgb(73, 73, 73);
-        background-color: rgba(240, 248, 255, 0);
+
         margin: 5px;
         border-radius: 5px;
         border: 0px;
@@ -172,13 +173,20 @@
         visibility: hidden;
         display: none;
       }
+
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        font-weight: bold;
+      }
     </style>
   </head>
 
   <body>
     <div class="menu">
         <div style="background-color: rgb(65, 65, 65);border-radius:5px"> 
-            <input name="main-street" type="text" class="form-control form-control-sm me-1" placeholder="Rua, Cidade" onchange="autocompletesearch(this.value)" style=" height: 38; border-radius: 5px; border: 0; margin: 1px; width: 200px;color:rgb(200,200,200)"/>
+            <input name="main-street" type="text" class="form-control form-control-sm me-1" placeholder="Rua, Cidade" onchange="autocompletesearch(this.value)" style=" height: 38; border-radius: 5px; border: 0; margin: 1px; width: 200px;color:rgb(200,200,200); background-color: rgb(73, 73, 73);"/>
             <label for="street" class="button" style=" padding: 10px; color: rgbrgb(193, 193, 193); text-align: center; vertical-align: middle; ">
                   <i class="fa fa-search"></i>
             </label>
@@ -189,7 +197,15 @@
     <div id="map" class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; z-index: 0"></div>
   </body>
   <script>
-      const map = L.map("map").fitWorld();
+      let config = {
+        minZoom: 10,
+        maxZoom: 18,
+      };
+      const map = L.map("map",config).fitWorld();
+      const zoom = 15;
+      function clickZoom(e) {
+        map.setView({lat:e.latlng.lat, lon:e.latlng.lng}, zoom);
+      }
       function autocomplete(itens) {
         var autocomplete = document.getElementById("autocomplete")
         autocomplete.innerHTML = ''
@@ -206,10 +222,9 @@
         
       }
       async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
-      async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj)}
+      async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
       async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");autocomplete.classList.remove('open');autocomplete.classList.add("closed"); var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
       const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
-
       function onLocationFound(values) {
         var mk = {area: 5,latlng: [values.lat, values.lon],address: values.display_name,};
         var radius = mk.area * 1000;
@@ -217,7 +232,7 @@
         var card = `
     <div class="flex">
     		<div style="z-index: 1000;width:100%;">
-    			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}</div>
+    			<div style="color: rgb(140, 183, 140);"><a style="text-decoration: none" target="_blank" href="https://www.google.com.br/maps/dir//${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}"><i class="fa fa-map-marker-alt"></i>  ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}</a></div>
     			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
     			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
     			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
@@ -416,27 +431,23 @@
 
         var locationMarker = new L.marker(mk.latlng, { icon: myIcon, draggable:draggable})
           .addTo(map)
-          .bindPopup(card);
+          .bindPopup(card)
+          .on("click", clickZoom);
           
        // var locationCircle = new L.circle(mk.latlng, radius, {
          // color: "yellow",draggable:true
        // }).addTo(map)
       }
-       
       function onLocationError(e) {alert(e.message);}
-      function dblclick(e) {reverseplace({lat:e.latlng.lat, lon:e.latlng.lng})}
-
+      function dblclick(e) {reverseplace({lat:e.latlng.lat, lon:e.latlng.lng}); }
       map.on("locationfound", onLocationFound);
       map.on("locationerror", onLocationError);
       map.on('dblclick',  dblclick);
       map.locate({ setView: true, maxZoom: 15 });
-
-
       //EXIBE MARCADORES DO BANCO DE DADOS
       varlocais = JSON.parse({{locais|safe}})
       varlocais.map((iten, index) => {
           onLocationFound(iten.fields);
-
       });
       var tabela = document.querySelectorAll('.leaflet-marker-draggable');
       for (var i = 0; i <= tabela.length; i++) {
