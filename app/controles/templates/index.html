@@ -1,459 +1,813 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <base target="_top" />
-    <meta charset="utf-8" />
-    <meta name="main-viewport" content="width=device-width, initial-scale=1" />
-
-    <title>Mobile tutorial - Leaflet</title>
-
-    <!-- <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="docs/images/favicon.ico"
-    /> -->
-
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-      crossorigin=""
-    />
-    <script
-      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-      crossorigin=""
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
-    />
-
-    <style>
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-      }
-
-      .leaflet-container {
-        height: 400px;
-        width: 600px;
-        max-width: 100%;
-        max-height: 100%;
-      }
-      .flex {
-        display: flex;
-        align-items: center;
-        justify-content: left;
-        flex-wrap: nowrap;
-      }
-      body {
-        padding: 0;
-        margin: 0;
-      }
-
-      #map {
-        height: 100%;
-        width: 100vw;
-      }
-      .leaflet-control-zoom {
-        display: flex;
-        border: 0;
-      }
-      .leaflet-touch,
-      .leaflet-control-layers,
-      .leaflet-touch,
-      .leaflet-bar,
-      .leaflet-control-zoom-out,
-      .leaflet-control-zoom-in {
-        border: 0 !important;
-      }
-      .leaflet-control-zoom-out {
-        margin-left: 5px;
-        content: icon;
-      }
-      .leaflet-control-zoom-in,
-      .leaflet-control-zoom-out {
-        background-color: rgb(62, 62, 62) !important;
-        color: rgb(193, 193, 193) !important;
-        border-radius: 5px !important;
-        padding-top: 5px;
-        height: 35px !important;
-        width: 40px !important;
-        text-align: center;
-      }
-      .button {
-        background-color: rgb(62, 62, 62) !important;
-        color: rgb(193, 193, 193) !important;
-        border-radius: 5px !important;
-        height: 40px !important;
-        width: 40px !important;
-        text-align: center;
-      }
-      .leaflet-control-zoom-in:hover,
-      .leaflet-control-zoom-out:hover,
-      .button:hover {
-        background-color: rgb(39, 39, 39) !important;
-        color: rgb(193, 193, 193) !important;
-      }
-      .autocomplete:hover{
-        background-color: rgb(39, 39, 39) !important;
-        color: rgb(193, 193, 193) !important;
-      }
-
-      .leaflet-popup {
-        margin-top: 200px;
-      }
-      .leaflet-popup-content-wrapper {
-        border-radius: 5px !important;
-        background-color: rgb(35, 35, 35);
-        width: 100%;
-      }
-      .leaflet-popup-tip {
-        background-color: rgb(35, 35, 35);
-      }
-      .menu {
-        position: fixed;
-        z-index: 800;
-        /* width: 200px; */
-        top: 10px;
-        left: 100px;
-        border-radius: 5px;
-        background-color: rgba(0, 0, 0, 0);
-      }
-      input:-webkit-autofill,
-      input:-webkit-autofill:hover, 
-      input:-webkit-autofill:focus,
-      textarea:-webkit-autofill,
-      textarea:-webkit-autofill:hover
-      textarea:-webkit-autofill:focus,
-      select:-webkit-autofill,
-      select:-webkit-autofill:hover,
-      select:-webkit-autofill:focus {
-        border: 1px solid white;
-        -webkit-text-fill-color: rgb(140, 183, 140)!important;
-        -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
-        transition: 0.5s;
-        color: rgb(140, 183, 140);
-        background-color: white;
-      }
-      .menu input:-webkit-autofill,
-      .menu input:-webkit-autofill:hover, 
-      .menu input:-webkit-autofill:focus,
-      .menu textarea:-webkit-autofill,
-      .menu textarea:-webkit-autofill:hover
-      .menu textarea:-webkit-autofill:focus,
-      .menu select:-webkit-autofill,
-      .menu select:-webkit-autofill:hover,
-      .menu select:-webkit-autofill:focus {
-        border: 1px solid white;
-        -webkit-text-fill-color: rgb(245, 245, 245)!important;
-        -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
-        transition: 0.5s;
-        color: rgb(200, 200, 200);
-      }
-
-      .card-init input {
-        height: 40px;
-        width: 230px;
-        background-color: rgb(73, 73, 73);
-
-        margin: 5px;
-        border-radius: 5px;
-        border: 0px;
-        color: rgb(193, 193, 193); 
-        text-indent: 10px;
-      }
-
-      .open {
-        visibility: visible;
-        display: block;
-      }
-      .closed {
-        visibility: hidden;
-        display: none;
-      }
-
-      a {
-        text-decoration: none;
-      }
-      a:hover {
-        font-weight: bold;
-      }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esportes</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"/>
   </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap");
+    *,
+    :after,
+    :before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    }
+
+    html {
+    height: 100%;
+    }
+
+    body,
+    html,
+    #map {
+    width: 100%;
+    height: 100%;
+    }
+
+    body {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Lato", sans-serif;
+    background-color: #f1f1f1;
+    }
+    *::-webkit-scrollbar {
+      width: 12px;               /* width of the entire scrollbar */
+    }
+    
+    *::-webkit-scrollbar-track {
+      background: 3px solid rgba(0, 0, 0, 0.959);        /* color of the tracking area */
+      border-radius: 5px;
+    }
+    
+    *::-webkit-scrollbar-thumb {
+      background-color: #f1f1f1;    /* color of the scroll thumb */
+      border-radius: 5px;       /* roundness of the scroll thumb */
+      border: 3px solid rgba(29, 29, 29, 0.911);  /* creates padding around scroll thumb */
+    }
+    .leaflet-control-container{
+      display:none;
+    }
+
+    svg:not(:root) {
+    overflow: hidden;
+    }
+
+    .hidden {
+    display: none;
+    }
+    .leaflet-container {
+      height: 400px;
+      width: 600px;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      flex-wrap: nowrap;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    #map {
+      height: 100%;
+      width: 100vw;
+    }
+    .leaflet-control-zoom {
+      display: flex;
+      border: 0;
+    }
+    .leaflet-touch,
+    .leaflet-control-layers,
+    .leaflet-touch,
+    .leaflet-bar,
+    .leaflet-control-zoom-out,
+    .leaflet-control-zoom-in {
+      border: 0 !important;
+    }
+    .leaflet-control-zoom-out {
+      margin-left: 5px;
+      content: icon;
+    }
+    .leaflet-control-zoom-in,
+    .leaflet-control-zoom-out {
+      background-color: rgb(62, 62, 62) !important;
+      color: rgb(193, 193, 193) !important;
+      border-radius: 5px !important;
+      padding-top: 5px;
+      height: 35px !important;
+      width: 40px !important;
+      text-align: center;
+    }
+    .button {
+      background-color: rgb(62, 62, 62) !important;
+      color: rgb(193, 193, 193) !important;
+      border-radius: 5px !important;
+      height: 40px !important;
+      width: 40px !important;
+      text-align: center;
+    }
+    .leaflet-control-zoom-in:hover,
+    .leaflet-control-zoom-out:hover,
+    .button:hover {
+      background-color: rgb(39, 39, 39) !important;
+      color: rgb(193, 193, 193) !important;
+    }
+    .autocomplete:hover{
+      background-color: rgb(39, 39, 39) !important;
+      color: rgb(193, 193, 193) !important;
+    }
+
+    .leaflet-popup {
+      margin-top: 200px;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 5px !important;
+      background-color: rgb(35, 35, 35);
+      width: 100%;
+    }
+    .leaflet-popup-tip {
+      background-color: rgb(35, 35, 35);
+    }
+    .menu {
+      position: fixed;
+      z-index: 800;
+      /* width: 200px; */
+      top: 10px;
+      left: 100px;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0);
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      border: 1px solid white;
+      -webkit-text-fill-color: rgb(140, 183, 140)!important;
+      -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
+      transition: 0.5s;
+      color: rgb(140, 183, 140);
+      background-color: white;
+    }
+    .menu input:-webkit-autofill,
+    .menu input:-webkit-autofill:hover, 
+    .menu input:-webkit-autofill:focus,
+    .menu textarea:-webkit-autofill,
+    .menu textarea:-webkit-autofill:hover
+    .menu textarea:-webkit-autofill:focus,
+    .menu select:-webkit-autofill,
+    .menu select:-webkit-autofill:hover,
+    .menu select:-webkit-autofill:focus {
+      border: 1px solid white;
+      -webkit-text-fill-color: rgb(245, 245, 245)!important;
+      -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
+      transition: 0.5s;
+      color: rgb(200, 200, 200);
+    }
+
+    .card-init input {
+      height: 40px;
+      width: 230px;
+      background-color: rgb(73, 73, 73);
+
+      margin: 5px;
+      border-radius: 5px;
+      border: 0px;
+      color: rgb(193, 193, 193); 
+      text-indent: 10px;
+    }
+
+    .open {
+      visibility: visible;
+      display: block;
+    }
+    .closed {
+      visibility: hidden;
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+    a:hover {
+      font-weight: bold;
+    }
+
+    .leaflet-left {
+    transform: translateX(55px);
+    }
+
+    .active-sidebar .leaflet-left {
+    transform: translateX(490px);
+    transition: transform 350ms;
+    }
+
+    .sidebar {
+    display: flex;
+    gap: 1rem;
+    position: absolute;
+    width: 46px;
+    max-width: 480px;
+    z-index: 99999;
+    background: rgba(29, 29, 29, 0.911) !important;
+    box-shadow: none;
+    overflow: hidden;
+    height: 100%;
+    border-radius: 5px;
+    }
+
+    .active-sidebar .sidebar {
+    max-width: 760px;
+    width: 100%;
+    }
+
+    @media (min-width: 768px) {
+    .sidebar {
+    top: 10px;
+    left: 10px;
+    height: calc(100% - 20px);
+    transition: width 500ms;
+    }
+
+    .leaflet-left {
+    transform: translateX(55px);
+    }
+
+    .active-sidebar .sidebar {
+    max-width: 480px;
+    width: 100%;
+    transition: width 1s;
+    }
+    }
+
+    .close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    border: none;
+    padding: 5px;
+    margin: 0;
+    padding: 0;
+    border-radius: 3px;
+    background: none;
+    opacity: 0;
+    pointer-events: none;
+    }
+
+    .active-sidebar .close-button {
+    pointer-events: all;
+    opacity: 1;
+    transition: opacity 100ms ease-in-out;
+    }
+
+    .sidebar .close-button svg {
+    fill: #fff;
+    }
+
+    .sidebar::before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    top: 0;
+    left: 44px;
+    width: 100%;
+    height: 40px;
+    box-shadow: 0px 0px 150px 150px rgba(0, 0, 0, 0.137);
+    }
+
+    .active-sidebar .sidebar::before {
+    left: 42px;
+    }
+
+    .sidebar svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: #000000;
+    pointer-events: none;
+    }
+
+    .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    height: 100%;
+    background-color: rgb(53, 53, 53);
+    }
+
+    .sidebar-menu li {
+    padding: 10px 11px;
+    cursor: pointer;
+    }
+
+    .sidebar-menu li:last-child {
+    margin-top: auto;
+    }
+
+    .sidebar-menu li:hover:last-child svg {
+    animation: rotation 500ms ease-in;
+    transform-origin: center;
+    }
+
+    @keyframes rotation {
+    from {
+    transform: rotate(0deg);
+    }
+    to {
+    transform: rotate(180deg);
+    }
+    }
+
+    .active-item {
+    background:  rgba(255, 255, 255, 0)
+    }
+
+    .active-item svg {
+    fill: #fff;
+    }
+
+    .item-content {
+    display: none;
+    margin-top: 8px;
+    padding-right: 10px;
+    height: 100%;
+    }
+
+    .item-content .content {
+    overflow: auto;
+    margin-top: 15px;
+    height: calc(100% - 50px);
+    padding-right: 10px;
+    }
+
+    .sidebar-content {
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    margin-bottom: 15px;
+    transition: opacity 500ms;
+    overflow: hidden;
+    fill: #861a1a;
+    }
+
+    .active-sidebar .sidebar-content {
+    opacity: 1;
+    pointer-events: visible;
+    transition: opacity 200ms;
+    }
+
+    .sidebar-content h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #fff;
+    white-space: nowrap;
+    width: calc(100% - 10px);
+    height: 25px;
+    margin: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    }
+
+    .active-content {
+    display: block;
+    }
+
+  </style>
 
   <body>
-    <div class="menu">
-        <div style="background-color: rgb(65, 65, 65);border-radius:5px"> 
-            <input name="main-street" type="text" class="form-control form-control-sm me-1" placeholder="Rua, Cidade" onchange="autocompletesearch(this.value)" style=" height: 38; border-radius: 5px; border: 0; margin: 1px; width: 200px;color:rgb(200,200,200); background-color: rgb(73, 73, 73);"/>
-            <label for="street" class="button" style=" padding: 10px; color: rgbrgb(193, 193, 193); text-align: center; vertical-align: middle; ">
-                  <i class="fa fa-search"></i>
-            </label>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M15.422 16.594 14.016 18l-6-6 6-6 1.406 1.406L10.828 12z" /></symbol>
+      <symbol id="icon-clear" viewBox="0 0 24 24"><path d="M18.984 6.422 13.406 12l5.578 5.578-1.406 1.406L12 13.406l-5.578 5.578-1.406-1.406L10.594 12 5.016 6.422l1.406-1.406L12 10.594l5.578-5.578z" /></symbol>
+      <symbol id="icon-email" viewBox="0 0 24 24"><path d="M20.016 8.016V6L12 11.016 3.984 6v2.016L12 12.985zm0-4.032q.797 0 1.383.609t.586 1.406v12q0 .797-.586 1.406t-1.383.609H3.985q-.797 0-1.383-.609t-.586-1.406v-12q0-.797.586-1.406t1.383-.609h16.031z" /> </symbol>
+      <symbol id="icon-menu" viewBox="0 0 24 24"> <path d="M3 13h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0-6h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0 12h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2z"/></symbol>
+      <symbol id="icon-person" viewBox="0 0 24 24"><path d="M12 14.016q2.531 0 5.273 1.102t2.742 2.883v2.016H3.984v-2.016q0-1.781 2.742-2.883t5.273-1.102zM12 12q-1.641 0-2.813-1.172T8.015 8.015t1.172-2.836T12 3.984t2.813 1.195 1.172 2.836-1.172 2.813T12 12z"/></symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 15.516q1.453 0 2.484-1.031t1.031-2.484-1.031-2.484T12 8.486 9.516 9.517t-1.031 2.484 1.031 2.484T12 15.516zm7.453-2.532 2.109 1.641q.328.234.094.656L19.64 18.75q-.188.328-.609.188l-2.484-.984q-.984.703-1.688.984l-.375 2.625q-.094.422-.469.422H9.984q-.375 0-.469-.422l-.375-2.625q-.891-.375-1.688-.984l-2.484.984q-.422.141-.609-.188l-2.016-3.469q-.234-.422.094-.656l2.109-1.641q-.047-.328-.047-.984t.047-.984L2.437 9.375q-.328-.234-.094-.656L4.359 5.25q.188-.328.609-.188l2.484.984q.984-.703 1.688-.984l.375-2.625q.094-.422.469-.422h4.031q.375 0 .469.422l.375 2.625q.891.375 1.688.984l2.484-.984q.422-.141.609.188l2.016 3.469q.234.422-.094.656l-2.109 1.641q.047.328.047.984t-.047.984z" /> </symbol>
+    </svg>
+    <div class="sidebar">
+      <button aria-label="close sidebar" type="button" class="close-button">
+        <svg><use xlink:href="#icon-clear" /> </svg>
+      </button>
+      <ul class="sidebar-menu">
+        <li class="menu-item" data-item="menu">
+          <svg><use xlink:href="#icon-menu"></use></svg>
+        </li>
+        <li class="menu-item" data-item="person">
+          <svg><use xlink:href="#icon-person"></use></svg>
+        </li>
+        <li class="menu-item" data-item="email">
+          <svg><use xlink:href="#icon-email"></use></svg>
+        </li>
+        <li class="menu-item" data-item="settings">
+          <svg><use xlink:href="#icon-settings"></use></svg>
+        </li>
+      </ul>
+
+      <div class="sidebar-content">
+        <div class="item-content" id="menu">
+          <h2>Sidebar without plugins</h2>
+          <div class="content">
+            Such a menu is not difficult to create on your own, you only need a
+            little html, css and only 40 lines of js. Not only will we learn
+            something new, but we will adjust the solution 100% to our
+            assumptions.<br /><br />You really don't need any plugin to do
+            something like this.
+          </div>
         </div>
-        <div id="autocomplete" class="closed" style="background-color: rgb(65, 65, 65);border-radius: 5px;"></div>
+        <div class="item-content" id="person">
+          <h2>Person</h2>
+          <div class="content">
+            person - Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Omnis, a.
+          </div>
+        </div>
+        <div class="item-content" id="email">
+          <h2>Email</h2>
+          <div class="content">
+            email - Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Nobis nostrum incidunt, ab explicabo expedita aliquam officiis vitae
+            laborum dicta consectetur, animi cum, culpa quaerat nam? Porro
+            temporibus, itaque quibusdam vitae consequuntur est ab iure! Commodi
+            est aspernatur animi quae! Ad fuga perferendis dignissimos
+            consectetur. Ullam excepturi eligendi blanditiis ex eius eaque
+            dignissimos officiis mollitia minus assumenda, necessitatibus,
+            reprehenderit molestias qui doloribus quaerat consequuntur
+            voluptatibus! Quos impedit a non eligendi, dolor animi sapiente
+            deserunt. Sunt ad saepe, dolorem voluptas impedit quibusdam, error
+            iure recusandae laboriosam id neque nam minus ducimus nemo nobis cum
+            in expedita unde accusantium rem. Ad dignissimos, quaerat
+            necessitatibus mollitia facere recusandae ipsum sint vel
+            exercitationem nemo quibusdam inventore? Laborum assumenda tenetur
+            cum quaerat tempore vero, ab optio magni quidem mollitia, ut, harum
+            amet nobis natus. Suscipit eos alias temporibus, eligendi quia
+            deserunt dignissimos dolor magnam et ratione praesentium, aspernatur
+            officiis reiciendis aut consectetur impedit velit id totam unde in.
+            Harum asperiores id veniam nam reprehenderit beatae, eaque qui odio
+            velit, blanditiis voluptas ipsum nihil! Fugit excepturi quod quaerat
+            magni quae delectus cum tempore culpa, saepe voluptatibus vitae
+            voluptatum dolorem quo magnam? Ex adipisci harum nihil laudantium
+            dolore minima quo amet deleniti eius vero, sunt sapiente dicta
+            aperiam, ratione aliquid officia iste dolorum similique consectetur
+            quaerat magni dolores iure odit? Id labore eveniet eligendi
+            voluptatibus. Repellat, assumenda!!!
+          </div>
+        </div>
+        <div class="item-content" id="settings">
+          <h2>Settings</h2>
+          <div class="content">settings</div>
+        </div>
+      </div>
     </div>
-    <div id="map" class="leaflet-container leaflet-touch leaflet-control-layers-scrollbar leaflet-control-layers-list leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative; z-index: 0"></div>
+    <div id="map"></div>
   </body>
-  <script>
-      let config = {
-        minZoom: 10,
-        maxZoom: 18,
-      };
-      const map = L.map("map",config).fitWorld();
-      const zoom = 15;
-      function clickZoom(e) {
-        map.setView({lat:e.latlng.lat, lon:e.latlng.lng}, zoom);
-      }
-      function autocomplete(itens) {
-        var autocomplete = document.getElementById("autocomplete")
-        autocomplete.innerHTML = ''
-        itens.map((element) => {
-          var spl = element.display_name.split(",")
-          var html= `
-            <div title='${element.display_name}' class="autocomplete" role="option" onclick="searchplace('${spl[0]}, ${spl[1]}')"  style="width:215px; padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
-            ${spl[0]}, ${spl[1]}
-            </div> `;
-          autocomplete.innerHTML = autocomplete.innerHTML+ html
-        })
-        autocomplete.classList.remove('closed')
-        autocomplete.classList.add("open")
-        
-      }
-      async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
-      async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
-      async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");autocomplete.classList.remove('open');autocomplete.classList.add("closed"); var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
-      const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
-      function onLocationFound(values) {
-        var mk = {area: 5,latlng: [values.lat, values.lon],address: values.display_name,};
-        var radius = mk.area * 1000;
-        var myIcon = L.icon({iconUrl: "media/leaflet/images/marker-icon.png",iconSize: [20, 30],iconAnchor: [10, 30],popupAnchor: [0, -30],});
-        var card = `
-    <div class="flex">
-    		<div style="z-index: 1000;width:100%;">
-    			<div style="color: rgb(140, 183, 140);"><a style="text-decoration: none" target="_blank" href="https://www.google.com.br/maps/dir//${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}"><i class="fa fa-map-marker-alt"></i>  ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}</a></div>
-    			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
-    			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
-    			<div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
-    		</div>
-    		<div style="z-index: 999;font-size: 70px;position:fixed;right: 10px; color: rgb(80, 80, 80);"><i class="fa fa-volleyball-ball"></i></div>
+</html>
+<script>
+  let config = {
+    minZoom: 10,
+    maxZoom: 18,
+  };
+  const map = L.map("map",config).fitWorld();
+  const zoom = 15;
+  function clickZoom(e) {
+    map.setView({lat:e.latlng.lat, lon:e.latlng.lng}, zoom);
+  }
+  function autocomplete(itens) {
+    var autocomplete = document.getElementById("autocomplete")
+    autocomplete.innerHTML = ''
+    itens.map((element) => {
+      var spl = element.display_name.split(",")
+      var html= `
+        <div title='${element.display_name}' class="autocomplete" role="option" onclick="searchplace('${spl[0]}, ${spl[1]}')"  style="width:215px; padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
+        ${spl[0]}, ${spl[1]}
+        </div> `;
+      autocomplete.innerHTML = autocomplete.innerHTML+ html
+    })
+    autocomplete.classList.remove('closed')
+    autocomplete.classList.add("open")
+    
+  }
+  async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
+  async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
+  async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");autocomplete.classList.remove('open');autocomplete.classList.add("closed"); var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
+  const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
+  function onLocationFound(values) {
+    var mk = {area: 5,latlng: [values.lat, values.lon],address: values.display_name,};
+    var radius = mk.area * 1000;
+    var myIcon = L.icon({iconUrl: "media/leaflet/images/marker-icon.png",iconSize: [20, 30],iconAnchor: [10, 30],popupAnchor: [0, -30],});
+    var card = `
+<div class="flex">
+    <div style="z-index: 1000;width:100%;">
+      <div style="color: rgb(140, 183, 140);"><a style="text-decoration: none" target="_blank" href="https://www.google.com.br/maps/dir//${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}"><i class="fa fa-map-marker-alt"></i>  ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}</a></div>
+      <div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+      <div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+      <div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+    </div>
+    <div style="z-index: 999;font-size: 70px;position:fixed;right: 10px; color: rgb(80, 80, 80);"><i class="fa fa-volleyball-ball"></i></div>
+</div>
+`;
+    console.log(values.place_id > 0)
+    draggable = false
+  if (values.place_id > 0) {
+      myIcon.options.iconUrl = "media/leaflet/images/marker-icon-yellow.png"
+      draggable = true
+      var card = `
+<div style="z-index: 1000; width: 100%" class="card-init">
+      <div style="color: rgb(140, 183, 140)" class="flex">
+        <div style="margin: 10px;font-size: 70px">
+          <i class="fa fa-map-marker-alt"></i>
+        </div>
+        <form
+          style="margin: 0; border: 0"
+          class="form-inline"
+          role="search"
+          accept-charset="UTF-8"
+          action=""
+          method="post"
+        >
+        {% csrf_token %}
+          <div class="row g-2" id="form-1" >
+            <div class="col-auto">
+              <input
+                name="main-street"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Endereço"
+                style="color: rgb(140, 183, 140)"
+      value="${mk.address.split(",")[0]}"
+      required
+              />
+            </div>
+    <div class="col-auto">
+              <input
+                name="main-number"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Número"
+                style="color: rgb(140, 183, 140)"
+      value=""
+      required
+              />
+            </div>
+    <div class="col-auto">
+              <input
+                id="county"
+                name="main-county"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Bairro"
+                style="color: rgb(140, 183, 140)"
+      value="${values.address.county}"
+      required
+              />
+            </div>
+            <div class="col-auto">
+              <input
+                name="main-city"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Cidade"
+                style="color: rgb(140, 183, 140)"
+      value="${values.address.city}"
+      required
+              />
+            </div>
+
+            <div class="col-auto">
+              <input
+                name="main-state"
+                type="hidden"
+                class="form-control form-control-sm me-1"
+                placeholder="Estado"
+      value="${values.address.state}"
+      required
+              />
+            </div>
+            <div class="col-auto">
+              <input
+                name="main-country"
+                type="hidden"
+                class="form-control form-control-sm me-1"
+                placeholder="País"
+      value="${values.address.country_code.toUpperCase()}"
+      required
+              />
+            </div>
+          </div>
+          <input
+                name="main-lat"
+                type="hidden"
+      value="${values.lat}"
+              />
+              <input
+                name="main-lon"
+                type="hidden"
+                class="form-control form-control-sm me-1"
+
+      value="${values.lon}"
+
+              />
+              <div class="col-auto">
+                <input
+                  style="display: none"
+                  name="main-postalcode"
+                  type="hidden"
+                  placeholder="Postal Code"
+                  value="${values.address.postcode}"
+
+                />
+  <button style="border: 0;margin: 0;padding: 5px;background-color: rgba(73, 73, 73, 0); color: rgb(140, 183, 140); font-size: 20px;"><i class="fa fa-arrow-right"></i></button>
+        </form>
+      </div>
     </div>
     `;
-        console.log(values.place_id > 0)
-        draggable = false
-      if (values.place_id > 0) {
-          myIcon.options.iconUrl = "media/leaflet/images/marker-icon-yellow.png"
-          draggable = true
-          var card = `
-    <div style="z-index: 1000; width: 100%" class="card-init">
-          <div style="color: rgb(140, 183, 140)" class="flex">
-            <div style="margin: 10px;font-size: 70px">
-              <i class="fa fa-map-marker-alt"></i>
-            </div>
-            <form
-              style="margin: 0; border: 0"
-              class="form-inline"
-              role="search"
-              accept-charset="UTF-8"
-              action=""
-              method="post"
-            >
-            {% csrf_token %}
-              <div class="row g-2" id="form-1" >
-                <div class="col-auto">
-                  <input
-                    name="main-street"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Endereço"
-                    style="color: rgb(140, 183, 140)"
-    		  value="${mk.address.split(",")[0]}"
-    		  required
-                  />
-                </div>
-    	  <div class="col-auto">
-                  <input
-                    name="main-number"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Número"
-                    style="color: rgb(140, 183, 140)"
-    		  value=""
-    		  required
-                  />
-                </div>
-    	  <div class="col-auto">
-                  <input
-                    id="county"
-                    name="main-county"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Bairro"
-                    style="color: rgb(140, 183, 140)"
-    		  value="${values.address.county}"
-    		  required
-                  />
-                </div>
-                <div class="col-auto">
-                  <input
-                    name="main-city"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Cidade"
-                    style="color: rgb(140, 183, 140)"
-    		  value="${values.address.city}"
-    		  required
-                  />
-                </div>
-
-                <div class="col-auto">
-                  <input
-                    name="main-state"
-                    type="hidden"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Estado"
-    		  value="${values.address.state}"
-    		  required
-                  />
-                </div>
-                <div class="col-auto">
-                  <input
-                    name="main-country"
-                    type="hidden"
-                    class="form-control form-control-sm me-1"
-                    placeholder="País"
-    		  value="${values.address.country_code.toUpperCase()}"
-    		  required
-                  />
-                </div>
-              </div>
+      var cards = `
+<div style="z-index: 1000; width: 100%" class="card-init">
+      <div style="color: rgb(140, 183, 140)" class="flex">
+        <div style="margin: 10px;font-size: 70px">
+          <i class="fa fa-map-marker-alt"></i>
+        </div>
+        <form
+          style="margin: 0; border: 0"
+          class="form-inline"
+          role="search"
+          accept-charset="UTF-8"
+          action=""
+  onsubmit="submitandchangedisplay();"
+        >
+  <div class="row g-2" id="form-2" >
+  <div class="col-auto">
               <input
-                    name="main-lat"
-                    type="hidden"
-    		  value="${values.lat}"
-                  />
-                  <input
-                    name="main-lon"
-                    type="hidden"
-                    class="form-control form-control-sm me-1"
+                name="main-date"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Data"
+      value=""
+      required
+              />
+  </div>
+  <div class="col-auto">
+              <input
+                name="main-hour"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Hora"
+      value=""
+      required
+              />
+  </div>
+  <div class="col-auto">
+              <input
+                name="main-duration"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Duração"
+      value=""
+      required
+              />
+  </div>
+  <div class="col-auto">
+              <input
+                name="main-sporte"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Esporte"
+      value=""
+      required
+              />
 
-    		  value="${values.lon}"
+  </div>
+  <div class="col-auto">
+              <input
+                name="main-placetype"
+                type="text"
+                class="form-control form-control-sm me-1"
+                placeholder="Tipo do Local de Jogo"
+      value=""
+      required
+              />
 
-                  />
-                  <div class="col-auto">
-                    <input
-                      style="display: none"
-                      name="main-postalcode"
-                      type="hidden"
-                      placeholder="Postal Code"
-                      value="${values.address.postcode}"
+  </div>
+  </div>
+  <button style="border: 0;margin: 0;padding: 5px;background-color: rgba(73, 73, 73, 0); color: rgb(140, 183, 140); font-size: 20px;"><i class="fa fa-arrow-right"></i></button>
+        </form>
+      </div>
+    </div>
+    `;}
 
-                    />
-    	<button style="border: 0;margin: 0;padding: 5px;background-color: rgba(73, 73, 73, 0); color: rgb(140, 183, 140); font-size: 20px;"><i class="fa fa-arrow-right"></i></button>
-            </form>
-          </div>
-        </div>
-    		`;
-          var cards = `
-    <div style="z-index: 1000; width: 100%" class="card-init">
-          <div style="color: rgb(140, 183, 140)" class="flex">
-            <div style="margin: 10px;font-size: 70px">
-              <i class="fa fa-map-marker-alt"></i>
-            </div>
-            <form
-              style="margin: 0; border: 0"
-              class="form-inline"
-              role="search"
-              accept-charset="UTF-8"
-              action=""
-    	onsubmit="submitandchangedisplay();"
-            >
-      <div class="row g-2" id="form-2" >
-    	<div class="col-auto">
-                  <input
-                    name="main-date"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Data"
-    		  value=""
-    		  required
-                  />
-    	</div>
-    	<div class="col-auto">
-                  <input
-                    name="main-hour"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Hora"
-    		  value=""
-    		  required
-                  />
-    	</div>
-    	<div class="col-auto">
-                  <input
-                    name="main-duration"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Duração"
-    		  value=""
-    		  required
-                  />
-    	</div>
-    	<div class="col-auto">
-                  <input
-                    name="main-sporte"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Esporte"
-    		  value=""
-    		  required
-                  />
-
-    	</div>
-    	<div class="col-auto">
-                  <input
-                    name="main-placetype"
-                    type="text"
-                    class="form-control form-control-sm me-1"
-                    placeholder="Tipo do Local de Jogo"
-    		  value=""
-    		  required
-                  />
-
-    	</div>
-    	</div>
-    	<button style="border: 0;margin: 0;padding: 5px;background-color: rgba(73, 73, 73, 0); color: rgb(140, 183, 140); font-size: 20px;"><i class="fa fa-arrow-right"></i></button>
-            </form>
-          </div>
-        </div>
-    		`;}
-
-        var locationMarker = new L.marker(mk.latlng, { icon: myIcon, draggable:draggable})
-          .addTo(map)
-          .bindPopup(card)
-          .on("click", clickZoom);
-          
-       // var locationCircle = new L.circle(mk.latlng, radius, {
-         // color: "yellow",draggable:true
-       // }).addTo(map)
-      }
-      function onLocationError(e) {alert(e.message);}
-      function dblclick(e) {reverseplace({lat:e.latlng.lat, lon:e.latlng.lng}); }
-      map.on("locationfound", onLocationFound);
-      map.on("locationerror", onLocationError);
-      map.on('dblclick',  dblclick);
-      map.locate({ setView: true, maxZoom: 15 });
-      //EXIBE MARCADORES DO BANCO DE DADOS
-      varlocais = JSON.parse({{locais|safe}})
-      varlocais.map((iten, index) => {
-          onLocationFound(iten.fields);
-      });
-      var tabela = document.querySelectorAll('.leaflet-marker-draggable');
-      for (var i = 0; i <= tabela.length; i++) {
-          tabela.addEventListener('onmove', function(event) {
-              console.log(event)
-          });
-      }
+    var locationMarker = new L.marker(mk.latlng, { icon: myIcon, draggable:draggable})
+      .addTo(map)
+      .bindPopup(card)
+      .on("click", clickZoom);
       
-  </script>
-</html>
+   // var locationCircle = new L.circle(mk.latlng, radius, {
+     // color: "yellow",draggable:true
+   // }).addTo(map)
+  }
+  function onLocationError(e) {alert(e.message);}
+  function dblclick(e) {reverseplace({lat:e.latlng.lat, lon:e.latlng.lng}); }
+  map.on("locationfound", onLocationFound);
+  map.on("locationerror", onLocationError);
+  map.on('dblclick',  dblclick);
+  map.locate({ setView: true, maxZoom: 15 });
+  //EXIBE MARCADORES DO BANCO DE DADOS
+  async function getlocals() {
+    var response = await fetch(`http://localhost:8000/locais`,{ method: "get" });
+    var locais = await response.json();
+    console.log(locais)
+    JSON.parse(locais).map((iten, index) => {
+      onLocationFound(iten.fields);
+    });
+  }
+  getlocals();
+
+</script>
+<script>
+  // --------------------------------------------------
+  // sidebar
+  
+  const menuItems = document.querySelectorAll(".menu-item");
+  const sidebar = document.querySelector(".sidebar");
+  const buttonClose = document.querySelector(".close-button");
+  
+  menuItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      const target = e.target;
+  
+      if (
+        target.classList.contains("active-item") ||
+        !document.querySelector(".active-sidebar")
+      ) {
+        document.body.classList.toggle("active-sidebar");
+      }
+  
+      // show content
+      showContent(target.dataset.item);
+      // add active class to menu item
+      addRemoveActiveItem(target, "active-item");
+    });
+  });
+  
+  // close sidebar when click on close button
+  buttonClose.addEventListener("click", () => {
+    closeSidebar();
+  });
+  
+  // remove active class from menu item and content
+  function addRemoveActiveItem(target, className) {
+    const element = document.querySelector(`.${className}`);
+    target.classList.add(className);
+    if (!element) return;
+    element.classList.remove(className);
+  }
+  
+  // show specific content
+  function showContent(dataContent) {
+    const idItem = document.querySelector(`#${dataContent}`);
+    addRemoveActiveItem(idItem, "active-content");
+  }
+  
+  // --------------------------------------------------
+  // close when click esc
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeSidebar();
+    }
+  });
+  
+  // close sidebar when click outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".sidebar")) {
+      closeSidebar();
+    }
+  });
+  
+  // --------------------------------------------------
+  // close sidebar
+  
+  function closeSidebar() {
+    document.body.classList.remove("active-sidebar");
+    const element = document.querySelector(".active-item");
+    const activeContent = document.querySelector(".active-content");
+    if (!element) return;
+    element.classList.remove("active-item");
+    activeContent.classList.remove("active-content");
+  }
+
+  
+</script>

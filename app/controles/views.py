@@ -1,7 +1,9 @@
 import json
+
 from django.shortcuts import render
 from controles.models import local
 from django.core import serializers
+from django.http import HttpResponse,JsonResponse
 
 def index(request):
     template = 'index.html'
@@ -16,9 +18,10 @@ def index(request):
         lat=request.POST.get("main-lat"),
         lon=request.POST.get("main-lon"), 
         cep=request.POST.get("main-postalcode"))
-    loc = local.objects.all()
-    locais = json.dumps(serializers.serialize("json", loc))
-    
- 
     return render(request, template , locals())
+
+def locais(request):
+    loc = local.objects.all()
+    locais = serializers.serialize("json", loc)
+    return HttpResponse(json.dumps(locais))
 
