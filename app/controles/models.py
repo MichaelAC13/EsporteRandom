@@ -12,13 +12,7 @@ class local(models.Model):
     lat = models.CharField(max_length=30, verbose_name='Latitude', null=True, blank=True)
     lon = models.CharField(max_length=30, verbose_name='Longitude', null=True, blank=True)
     tipo = models.ManyToManyField('esporte', verbose_name='Tipo', null=True, blank=True)
-    
-
-    
-    @property
-    def display_name(self):
-        return "%s %s - %s , %s - %s" (self.rua,self.numero, self.bairro, self.cidade)
-    
+     
     @property
     def place_id(self):
         return 0
@@ -28,6 +22,9 @@ class local(models.Model):
 
 class esporte(models.Model):    
     tipo = models.CharField(max_length=30, verbose_name='Tipo', null=True, blank=True)
+    cor = models.CharField(max_length=10, verbose_name='Cor', null=True, blank=True)
+    icon_url = models.ImageField(verbose_name='Icone', upload_to="media/leaflet/images/", max_length=100, default="media/leaflet/images/marker-icon.png")
+
     class Meta:
         verbose_name_plural = "Esportes"  
           
