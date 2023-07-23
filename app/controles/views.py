@@ -1,7 +1,7 @@
 import json
 
 from django.shortcuts import render
-from controles.models import local,agendamento
+from controles.models import local,agendamento,esporte
 from django.core import serializers
 from django.http import HttpResponse,JsonResponse
 
@@ -20,15 +20,19 @@ def index(request):
         cep=request.POST.get("main-postalcode"))
     return render(request, template , locals())
 
+# def locais(request):
+#     return HttpResponse(json.dumps(serializers.serialize("json", local.objects.all())))
 def locais(request):
-    return HttpResponse(json.dumps(serializers.serialize("json", local.objects.all())))
+    res = json.loads(serializers.serialize("json", local.objects.all()))
+    for a in res:
+        a["fields"]["agendamento"]=json.loads(serializers.serialize("json",agendamento.objects.filter(local=a["pk"])))
+        for t in a["fields"]["tipo"]:
+            a["fields"]["tipo"] = json.loads(serializers.serialize("json",esporte.objects.filter(pk=t)))
+    return HttpResponse(json.dumps(res))
 
 def agendamentos(request):
-    ag = json.loads(serializers.serialize("json", agendamento.objects.all()))
-    for a in ag:
-        print(a)
+    res = json.loads(serializers.serialize("json", agendamento.objects.all()))
+    for a in res:
         a["fields"]["local"]=json.loads(serializers.serialize("json",local.objects.filter(pk=a["fields"]["local"])))[0]
-        # 
-    print(a)
-    return HttpResponse(json.dumps(ag))
+    return HttpResponse(json.dumps(res))
 

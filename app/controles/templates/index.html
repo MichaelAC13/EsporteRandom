@@ -519,6 +519,16 @@
     autocomplete.classList.remove('closed')
     autocomplete.classList.add("open")  
   }
+
+  function autocompletedb(values) {
+    var autocomplete = document.getElementById("autocomplete")
+    var html= `
+      <div class="autocomplete" role="option" onclick="searchplace('${values.lat}, ${values.lon}')"  style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
+        ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}
+      </div> `;
+    autocomplete.innerHTML = autocomplete.innerHTML+ html 
+  }
+  
   async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
   async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
   async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");closeSidebar();var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json(); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
@@ -527,13 +537,31 @@
     var mk = {area: 5,latlng: [values.lat, values.lon],address: values.display_name,};
     var radius = mk.area * 1000;
     var myIcon = L.icon({iconUrl: "media/leaflet/images/marker-icon.png",iconSize: [20, 30],iconAnchor: [10, 30],popupAnchor: [0, -30],});
+    var ag = values.agendamento
+    var cardag= ''
+    ag.map((value) =>{
+      console.log(value)
+      cardag = cardag + `<div style="display:flex;">
+      <div style="font-size:10px;color:white;background-color:#1b1b1b; border-radius:5px; margin:5px; padding:5px"><i class="fa fa-calendar-check"></i>&nbsp ${value.fields.data}</div>
+      <div style="font-size:10px;color:white;background-color:#1b1b1b; border-radius:5px; margin:5px; padding:5px"><i class="fa fa-clock"></i>&nbsp${value.fields.hora}</div>
+      <div style="font-size:10px;color:white;background-color:#1b1b1b; border-radius:5px; margin:5px; padding:5px"><i class="fa fa-stopwatch"></i>&nbsp${value.fields.duracao}&nbsph</div>
+      </div>`
+    })
+
+    var tp = values.tipo
+    var cardtp= ''
+    tp.map((value) =>{
+      console.log(value)
+      cardtp = cardtp + `<div style="color:rgb(5,106,146);text-indent:7px">${value.fields.tipo}</div>`
+    })
+
+
     var card = `
 <div class="flex">
     <div style="z-index: 1000;width:100%;">
       <div style="color: rgb(140, 183, 140);"><a style="text-decoration: none" target="_blank" href="https://www.google.com.br/maps/dir//${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}"><i class="fa fa-map-marker-alt"></i>  ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}</a></div>
-      <div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
-      <div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
-      <div style="color: rgb(140, 183, 140);"><i class="fa fa-map-marker-alt"></i> Vila Militar Piraquara Paraná	</div>
+      <div>${cardtp}</div>
+      <div>${cardag}</div>
     </div>
     <div style="z-index: 999;font-size: 70px;position:fixed;right: 10px; color: rgb(80, 80, 80);"><i class="fa fa-volleyball-ball"></i></div>
 </div>
@@ -746,9 +774,10 @@
   async function getlocals() {
     var response = await fetch(`http://localhost:8000/locais`,{ method: "get" });
     var locais = await response.json();
-    
-    JSON.parse(locais).map((iten, index) => {
+    console.log(locais)
+    locais.map((iten, index) => {
       onLocationFound(iten.fields);
+      autocompletedb(iten.fields)
     });
   }
   getlocals();
