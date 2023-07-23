@@ -1,7 +1,7 @@
 import json
 
 from django.shortcuts import render
-from controles.models import local
+from controles.models import local,agendamento
 from django.core import serializers
 from django.http import HttpResponse,JsonResponse
 
@@ -21,7 +21,8 @@ def index(request):
     return render(request, template , locals())
 
 def locais(request):
-    loc = local.objects.all()
-    locais = serializers.serialize("json", loc)
-    return HttpResponse(json.dumps(locais))
+    return HttpResponse(json.dumps(serializers.serialize("json", local.objects.all())))
+
+def agendamentos(request):
+    return HttpResponse(json.dumps(serializers.serialize("json", agendamento.objects.all())))
 

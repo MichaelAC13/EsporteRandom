@@ -21,7 +21,7 @@ class local(models.Model):
         verbose_name_plural = "Locais"
 
 class esporte(models.Model):    
-    tipo = models.CharField(max_length=30, verbose_name='Tipo', null=True, blank=True)
+    tipo = models.CharField(max_length=30, verbose_name='Tipo', blank=True)
     cor = models.CharField(max_length=10, verbose_name='Cor', null=True, blank=True)
     icon_url = models.ImageField(verbose_name='Icone', upload_to="media/leaflet/images/", max_length=100, default="media/leaflet/images/marker-icon.png")
 
@@ -32,7 +32,7 @@ class agendamento(models.Model):
     local = models.ForeignKey('Local', on_delete=models.CASCADE, null=True, blank=True)
     data = models.DateField(default=timezone.now(), verbose_name='Data', null=True, blank=True)
     hora = models.TimeField(max_length=10, verbose_name='Hora', null=True, blank=True)
-    duração = models.CharField(max_length=10, verbose_name='Duração', null=True, blank=True)
+    duracao = models.CharField(max_length=10, verbose_name='Duração', null=True, blank=True)
     
     class Meta:
         verbose_name_plural = "Agendamentos"

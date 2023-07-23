@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('locais/', views.locais, name='locais'),
+    path('agendamentos/', views.agendamentos, name='agendamentos'),
 ]
 
 if settings.DEBUG:

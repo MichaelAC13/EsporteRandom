@@ -47,7 +47,7 @@
     }
     
     *::-webkit-scrollbar-thumb {
-      background-color: #f1f1f1;    /* color of the scroll thumb */
+      background-color: #313131;    /* color of the scroll thumb */
       border-radius: 5px;       /* roundness of the scroll thumb */
       border: 3px solid rgba(29, 29, 29, 0.911);  /* creates padding around scroll thumb */
     }
@@ -116,6 +116,8 @@
       height: 40px !important;
       width: 40px !important;
       text-align: center;
+      margin-left: 5px;
+      cursor: pointer;
     }
     .leaflet-control-zoom-in:hover,
     .leaflet-control-zoom-out:hover,
@@ -164,15 +166,15 @@
       color: rgb(140, 183, 140);
       background-color: white;
     }
-    .menu input:-webkit-autofill,
-    .menu input:-webkit-autofill:hover, 
-    .menu input:-webkit-autofill:focus,
-    .menu textarea:-webkit-autofill,
-    .menu textarea:-webkit-autofill:hover
-    .menu textarea:-webkit-autofill:focus,
-    .menu select:-webkit-autofill,
-    .menu select:-webkit-autofill:hover,
-    .menu select:-webkit-autofill:focus {
+    * input:-webkit-autofill,
+    * input:-webkit-autofill:hover, 
+    * input:-webkit-autofill:focus,
+    * textarea:-webkit-autofill,
+    * textarea:-webkit-autofill:hover
+    * textarea:-webkit-autofill:focus,
+    * select:-webkit-autofill,
+    * select:-webkit-autofill:hover,
+    * select:-webkit-autofill:focus {
       border: 1px solid white;
       -webkit-text-fill-color: rgb(245, 245, 245)!important;
       -webkit-box-shadow: 0 0 0px 1000px rgb(65, 65, 65) inset;
@@ -335,12 +337,12 @@
     }
 
     .active-item {
-    background:  rgba(255, 255, 255, 0)
+    background:  rgba(44, 44, 44, 0.753)
     }
-
+    
     .active-item svg {
-    fill: #fff;
-    }
+      fill: rgb(22, 75, 145);
+      }
 
     .item-content {
     display: none;
@@ -351,6 +353,7 @@
 
     .item-content .content {
     overflow: auto;
+    overflow-x: hidden;
     margin-top: 15px;
     height: calc(100% - 50px);
     padding-right: 10px;
@@ -388,6 +391,19 @@
     .active-content {
     display: block;
     }
+    .search-bar{
+      width:100%;
+      margin:5px;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    .search-bar input{
+      width: 100%;
+      background-color: #1b1b1b;
+      color: #f1f1f1;
+      text-indent: 15px;
+      border: 0;
+    }
 
   </style>
 
@@ -399,7 +415,11 @@
       <symbol id="icon-menu" viewBox="0 0 24 24"> <path d="M3 13h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0-6h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0 12h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2z"/></symbol>
       <symbol id="icon-person" viewBox="0 0 24 24"><path d="M12 14.016q2.531 0 5.273 1.102t2.742 2.883v2.016H3.984v-2.016q0-1.781 2.742-2.883t5.273-1.102zM12 12q-1.641 0-2.813-1.172T8.015 8.015t1.172-2.836T12 3.984t2.813 1.195 1.172 2.836-1.172 2.813T12 12z"/></symbol>
       <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 15.516q1.453 0 2.484-1.031t1.031-2.484-1.031-2.484T12 8.486 9.516 9.517t-1.031 2.484 1.031 2.484T12 15.516zm7.453-2.532 2.109 1.641q.328.234.094.656L19.64 18.75q-.188.328-.609.188l-2.484-.984q-.984.703-1.688.984l-.375 2.625q-.094.422-.469.422H9.984q-.375 0-.469-.422l-.375-2.625q-.891-.375-1.688-.984l-2.484.984q-.422.141-.609-.188l-2.016-3.469q-.234-.422.094-.656l2.109-1.641q-.047-.328-.047-.984t.047-.984L2.437 9.375q-.328-.234-.094-.656L4.359 5.25q.188-.328.609-.188l2.484.984q.984-.703 1.688-.984l.375-2.625q.094-.422.469-.422h4.031q.375 0 .469.422l.375 2.625q.891.375 1.688.984l2.484-.984q.422-.141.609.188l2.016 3.469q.234.422-.094.656l-2.109 1.641q.047.328.047.984t-.047.984z" /> </symbol>
+      <symbol id="icon-place" viewBox="0 0 15 24"><path d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></symbol>
+      <symbol id="icon-search" viewBox="0 0 15 24"><path d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/></symbol>
+      <symbol id="icon-calendar" viewBox="0 0 15 24"><path d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></symbol>
     </svg>
+
     <div class="sidebar">
       <button aria-label="close sidebar" type="button" class="close-button">
         <svg><use xlink:href="#icon-clear" /> </svg>
@@ -407,6 +427,12 @@
       <ul class="sidebar-menu">
         <li class="menu-item" data-item="menu">
           <svg><use xlink:href="#icon-menu"></use></svg>
+        </li>
+        <li class="menu-item" data-item="place">
+          <svg><use xlink:href="#icon-place"></use></svg>
+        </li>
+        <li class="menu-item" data-item="calendar">
+          <svg><use xlink:href="#icon-calendar"></use></svg>
         </li>
         <li class="menu-item" data-item="person">
           <svg><use xlink:href="#icon-person"></use></svg>
@@ -421,56 +447,48 @@
 
       <div class="sidebar-content">
         <div class="item-content" id="menu">
-          <h2>Sidebar without plugins</h2>
+          <h2>Menu</h2>
           <div class="content">
-            Such a menu is not difficult to create on your own, you only need a
-            little html, css and only 40 lines of js. Not only will we learn
-            something new, but we will adjust the solution 100% to our
-            assumptions.<br /><br />You really don't need any plugin to do
-            something like this.
+          </div>
+        </div>
+        <div class="item-content" id="place">
+          <h2>Lugares</h2>
+          <div class="content">
+            <div class="search-bar" > 
+              <input onchange="autocompletesearch(this.value)"/>
+              <label for="street" class="button" style=" padding: 10px; color: rgb(193, 193, 193); text-align: center; vertical-align: middle; ">
+                <i class="fa fa-search"></i>
+              </label>
+            </div>
+            <div id="autocomplete" class="closed" style="background-color: rgba(0, 0, 0, 0);"></div>
           </div>
         </div>
         <div class="item-content" id="person">
-          <h2>Person</h2>
+          <h2>Meus dados</h2>
           <div class="content">
-            person - Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Omnis, a.
+           
+          </div>
+        </div>
+        <div class="item-content" id="calendar">
+          <h2>Agendamentos</h2>
+          <div class="content">
+            <div id="agendamentos">
+
+            </div>
+           
           </div>
         </div>
         <div class="item-content" id="email">
-          <h2>Email</h2>
+          <h2>Mensagens</h2>
           <div class="content">
-            email - Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Nobis nostrum incidunt, ab explicabo expedita aliquam officiis vitae
-            laborum dicta consectetur, animi cum, culpa quaerat nam? Porro
-            temporibus, itaque quibusdam vitae consequuntur est ab iure! Commodi
-            est aspernatur animi quae! Ad fuga perferendis dignissimos
-            consectetur. Ullam excepturi eligendi blanditiis ex eius eaque
-            dignissimos officiis mollitia minus assumenda, necessitatibus,
-            reprehenderit molestias qui doloribus quaerat consequuntur
-            voluptatibus! Quos impedit a non eligendi, dolor animi sapiente
-            deserunt. Sunt ad saepe, dolorem voluptas impedit quibusdam, error
-            iure recusandae laboriosam id neque nam minus ducimus nemo nobis cum
-            in expedita unde accusantium rem. Ad dignissimos, quaerat
-            necessitatibus mollitia facere recusandae ipsum sint vel
-            exercitationem nemo quibusdam inventore? Laborum assumenda tenetur
-            cum quaerat tempore vero, ab optio magni quidem mollitia, ut, harum
-            amet nobis natus. Suscipit eos alias temporibus, eligendi quia
-            deserunt dignissimos dolor magnam et ratione praesentium, aspernatur
-            officiis reiciendis aut consectetur impedit velit id totam unde in.
-            Harum asperiores id veniam nam reprehenderit beatae, eaque qui odio
-            velit, blanditiis voluptas ipsum nihil! Fugit excepturi quod quaerat
-            magni quae delectus cum tempore culpa, saepe voluptatibus vitae
-            voluptatum dolorem quo magnam? Ex adipisci harum nihil laudantium
-            dolore minima quo amet deleniti eius vero, sunt sapiente dicta
-            aperiam, ratione aliquid officia iste dolorum similique consectetur
-            quaerat magni dolores iure odit? Id labore eveniet eligendi
-            voluptatibus. Repellat, assumenda!!!
+            
           </div>
         </div>
         <div class="item-content" id="settings">
           <h2>Settings</h2>
-          <div class="content">settings</div>
+          <div class="content">
+
+          </div>
         </div>
       </div>
     </div>
@@ -493,18 +511,17 @@
     itens.map((element) => {
       var spl = element.display_name.split(",")
       var html= `
-        <div title='${element.display_name}' class="autocomplete" role="option" onclick="searchplace('${spl[0]}, ${spl[1]}')"  style="width:215px; padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
+        <div title='${element.display_name}' class="autocomplete" role="option" onclick="searchplace('${spl[0]}, ${spl[1]}')"  style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
         ${spl[0]}, ${spl[1]}
         </div> `;
       autocomplete.innerHTML = autocomplete.innerHTML+ html
     })
     autocomplete.classList.remove('closed')
-    autocomplete.classList.add("open")
-    
+    autocomplete.classList.add("open")  
   }
   async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
   async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
-  async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");autocomplete.classList.remove('open');autocomplete.classList.add("closed"); var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
+  async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");closeSidebar();var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
   const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
   function onLocationFound(values) {
     var mk = {area: 5,latlng: [values.lat, values.lon],address: values.display_name,};
@@ -735,6 +752,31 @@
     });
   }
   getlocals();
+
+  function setagendamentos(itens) {
+    var agendamentos = document.getElementById("agendamentos")
+    console.log(itens)
+    itens.map((element) => {
+      var html= `
+        <div title='${element.local}' class="agendamentos" role="option" style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
+        ${element.local}
+        ${element.data}
+        ${element.hora}
+        </div> `;
+        agendamentos.innerHTML = agendamentos.innerHTML+ html
+    })
+    agendamentos.classList.remove('closed')
+    agendamentos.classList.add("open")  
+  }
+
+  async function getagendamentos() {
+    var response = await fetch(`http://localhost:8000/agendamentos`,{ method: "get" });
+    var locais = await response.json();
+    JSON.parse(locais).map((iten, index) => {
+      setagendamentos(iten.fields);
+    });
+  }
+  getagendamentos();
 
 </script>
 <script>
