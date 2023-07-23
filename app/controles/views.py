@@ -24,5 +24,11 @@ def locais(request):
     return HttpResponse(json.dumps(serializers.serialize("json", local.objects.all())))
 
 def agendamentos(request):
-    return HttpResponse(json.dumps(serializers.serialize("json", agendamento.objects.all())))
+    ag = json.loads(serializers.serialize("json", agendamento.objects.all()))
+    for a in ag:
+        print(a)
+        a["fields"]["local"]=json.loads(serializers.serialize("json",local.objects.filter(pk=a["fields"]["local"])))[0]
+        # 
+    print(a)
+    return HttpResponse(json.dumps(ag))
 

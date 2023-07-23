@@ -521,7 +521,7 @@
   }
   async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
   async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
-  async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");closeSidebar();var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });console.log("values"); console.log(values);var latlon = await response.json();console.log(latlon); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
+  async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");closeSidebar();var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json(); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
   const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
   function onLocationFound(values) {
     var mk = {area: 5,latlng: [values.lat, values.lon],address: values.display_name,};
@@ -538,7 +538,7 @@
     <div style="z-index: 999;font-size: 70px;position:fixed;right: 10px; color: rgb(80, 80, 80);"><i class="fa fa-volleyball-ball"></i></div>
 </div>
 `;
-    console.log(values.place_id > 0)
+    
     draggable = false
   if (values.place_id > 0) {
       myIcon.options.iconUrl = "media/leaflet/images/marker-icon-yellow.png"
@@ -746,7 +746,7 @@
   async function getlocals() {
     var response = await fetch(`http://localhost:8000/locais`,{ method: "get" });
     var locais = await response.json();
-    console.log(locais)
+    
     JSON.parse(locais).map((iten, index) => {
       onLocationFound(iten.fields);
     });
@@ -754,27 +754,26 @@
   getlocals();
 
   function setagendamentos(itens) {
-    var agendamentos = document.getElementById("agendamentos")
-    console.log(itens)
-    itens.map((element) => {
-      var html= `
-        <div title='${element.local}' class="agendamentos" role="option" style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
-        ${element.local}
-        ${element.data}
-        ${element.hora}
-        </div> `;
-        agendamentos.innerHTML = agendamentos.innerHTML+ html
-    })
-    agendamentos.classList.remove('closed')
-    agendamentos.classList.add("open")  
+   
   }
 
   async function getagendamentos() {
     var response = await fetch(`http://localhost:8000/agendamentos`,{ method: "get" });
     var locais = await response.json();
-    JSON.parse(locais).map((iten, index) => {
-      setagendamentos(iten.fields);
+    var agendamentos = document.getElementById("agendamentos")
+    console.log(locais)
+    locais.map((iten, index) => {
+      console.log(iten)
+      var html= `
+        <div title='${iten.fields.local.fields.bairro} - ${iten.fields.local.fields.cidade}' class="agendamentos" role="option" style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
+        ${iten.fields.local.fields.bairro} - ${iten.fields.local.fields.cidade}
+        ${iten.fields.data}
+        ${iten.fields.duracao}
+        </div> `;
+        agendamentos.innerHTML = agendamentos.innerHTML+ html
     });
+    agendamentos.classList.remove('closed')
+    agendamentos.classList.add("open")  
   }
   getagendamentos();
 
