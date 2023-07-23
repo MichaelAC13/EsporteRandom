@@ -504,7 +504,15 @@
   const zoom = 15;
   function clickZoom(e) {
     map.setView({lat:e.latlng.lat, lon:e.latlng.lng}, zoom);
+    map.setView(e, zoom);
+    closeSidebar();
   }
+
+  function clickZoomdb(latlon) {
+    map.setView(latlon, zoom);
+    closeSidebar();
+  }
+
   function autocomplete(itens) {
     var autocomplete = document.getElementById("autocomplete")
     autocomplete.innerHTML = ''
@@ -521,12 +529,18 @@
   }
 
   function autocompletedb(values) {
-    var autocomplete = document.getElementById("autocomplete")
+    console.log('values')
+    
+    var autocomplete = document.getElementById("autocomplete") 
     var html= `
-      <div class="autocomplete" role="option" onclick="searchplace('${values.lat}, ${values.lon}')"  style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
+      <div class="autocomplete" role="option" onclick="clickZoomdb({lat:${values.lat}, lon:${values.lon}})"  style="padding:10px; vertical-align:middle; color:rgb(200, 200, 200) !important; margin:5px;margin:5px; border-radius:5px; background-color:rgb(73, 73, 73); cursor:pointer" >
         ${values.rua} ${values.numero}, ${values.bairro} - ${values.cidade}
       </div> `;
-    autocomplete.innerHTML = autocomplete.innerHTML+ html 
+    autocomplete.innerHTML = autocomplete.innerHTML + html 
+    autocomplete.classList.remove('closed')
+    autocomplete.classList.add("open") 
+    console.log(autocomplete)
+
   }
   
   async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
