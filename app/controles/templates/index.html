@@ -130,13 +130,11 @@
       color: rgb(193, 193, 193) !important;
     }
 
-    .leaflet-popup {
-      margin-top: 200px;
-    }
+
     .leaflet-popup-content-wrapper {
       border-radius: 5px !important;
       background-color: rgb(35, 35, 35);
-      width: 100%;
+      width: 270px;
     }
     .leaflet-popup-tip {
       background-color: rgb(35, 35, 35);
@@ -504,13 +502,16 @@
   const zoom = 15;
   function clickZoom(e) {
     map.setView({lat:e.latlng.lat, lon:e.latlng.lng}, zoom);
-    map.setView(e, zoom);
+   
     closeSidebar();
   }
 
   function clickZoomdb(latlon) {
     map.setView(latlon, zoom);
     closeSidebar();
+    var locationCircle = new L.circle(latlon, 100, {
+     color: "rgb(43,130,203)",draggable:false
+    }).addTo(map)
   }
 
   function autocomplete(itens) {
@@ -544,7 +545,7 @@
   }
   
   async function autocompletesearch(values) {var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json();autocomplete(latlon);}
-  async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var place = response; var obj = Object.assign({}, place, iten);onLocationFound(obj);map.setView(iten, zoom);}
+  async function reverseplace(iten) {var response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${iten.lat}&lon=${iten.lon}&format=json`,{ method: "get" }).then((data) => data.json());var values = response;onLocationFound(values);map.setView(iten, zoom);}
   async function searchplace(values) {var autocomplete = document.getElementById("autocomplete");closeSidebar();var response = await fetch(`https://nominatim.openstreetmap.org/search?q=${values}&polygon_geojson=1&format=json`,{ method: "get" });var latlon = await response.json(); reverseplace({lat:latlon[0].lat, lon:latlon[0].lon});}
   const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom: 25,attribution:'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',}).addTo(map);
   function onLocationFound(values) {
@@ -552,6 +553,7 @@
     var radius = mk.area * 1000;
     var myIcon = L.icon({iconUrl: "media/leaflet/images/marker-icon.png",iconSize: [20, 30],iconAnchor: [10, 30],popupAnchor: [0, -30],});
     var ag = values.agendamento
+    if (ag){
     var cardag= ''
     ag.map((value) =>{
       console.log(value)
@@ -561,13 +563,13 @@
       <div style="font-size:10px;color:white;background-color:#1b1b1b; border-radius:5px; margin:5px; padding:5px"><i class="fa fa-stopwatch"></i>&nbsp${value.fields.duracao}&nbsph</div>
       </div>`
     })
-
     var tp = values.tipo
     var cardtp= ''
     tp.map((value) =>{
       console.log(value)
       cardtp = cardtp + `<div style="color:rgb(5,106,146);text-indent:7px">${value.fields.tipo}</div>`
     })
+    }
 
 
     var card = `

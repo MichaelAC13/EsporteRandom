@@ -11,7 +11,7 @@ class local(models.Model):
     pais = models.CharField(max_length=100, verbose_name='País', null=True, blank=True)
     lat = models.CharField(max_length=30, verbose_name='Latitude', null=True, blank=True)
     lon = models.CharField(max_length=30, verbose_name='Longitude', null=True, blank=True)
-    tipo = models.ManyToManyField('esporte', verbose_name='Tipo', null=True, blank=True)
+    tipo = models.ManyToManyField('esporte', verbose_name='Tipo', blank=True)
      
     @property
     def place_id(self):
@@ -35,7 +35,7 @@ class esporte(models.Model):
           
 class agendamento(models.Model):
     local = models.ForeignKey('Local', on_delete=models.CASCADE, null=True, blank=True)
-    data = models.DateField(default=timezone.now(), verbose_name='Data', null=True, blank=True)
+    data = models.DateField(verbose_name='Data', null=True, blank=True)
     hora = models.TimeField(max_length=10, verbose_name='Hora', null=True, blank=True)
     duracao = models.CharField(max_length=10, verbose_name='Duração', null=True, blank=True)
     
